@@ -1,0 +1,152 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Daisy Family",
+        "description": "Sign in with your Daisy Family username and password. Strong authentication does not work here, so create a password in Daisy first.",
+        "data": {
+          "host": "Service address",
+          "username": "Username",
+          "password": "Password"
+        },
+        "data_description": {
+          "host": "For example janakkala.daisyfamily.fi"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Sign in again",
+        "description": "Daisy Family rejected the password for {username}. Enter the current password.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the service",
+      "invalid_auth": "Wrong username or password",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This account is already configured",
+      "reauth_successful": "Re-authentication was successful"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "group": {
+        "name": "Group"
+      },
+      "care_start_today": {
+        "name": "Care starts today"
+      },
+      "care_end_today": {
+        "name": "Care ends today"
+      },
+      "next_care_start": {
+        "name": "Next care time"
+      },
+      "arrived_today": {
+        "name": "Arrived today"
+      },
+      "departed_today": {
+        "name": "Left today"
+      },
+      "next_absence": {
+        "name": "Next absence"
+      },
+      "reserved_hours_week": {
+        "name": "Reserved hours this week"
+      },
+      "unread_messages": {
+        "name": "Unread messages"
+      },
+      "latest_message": {
+        "name": "Latest message"
+      },
+      "bulletins": {
+        "name": "Bulletin board posts"
+      },
+      "latest_bulletin": {
+        "name": "Latest bulletin board post"
+      },
+      "reservations": {
+        "name": "Care reservations"
+      },
+      "next_vacation": {
+        "name": "Next holiday period"
+      },
+      "next_holiday": {
+        "name": "Next public holiday"
+      },
+      "all_messages": {
+        "name": "All messages"
+      },
+      "last_success": {
+        "name": "Last successful update"
+      },
+      "update_duration": {
+        "name": "Update duration"
+      },
+      "centre": {
+        "name": "Daycare centre"
+      }
+    },
+    "binary_sensor": {
+      "absent_today": {
+        "name": "Absent today"
+      },
+      "at_daycare": {
+        "name": "At daycare",
+        "state": {
+          "on": "At daycare",
+          "off": "Not at daycare"
+        }
+      },
+      "reservations_missing": {
+        "name": "Care times not reported"
+      },
+      "vacation_reservations_missing": {
+        "name": "Holiday care times not reported"
+      },
+      "connection_problem": {
+        "name": "Connection problem"
+      }
+    },
+    "image": {
+      "picture": {
+        "name": "Profile picture"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options",
+        "data": {
+          "max_messages": "Number of messages to fetch",
+          "care_days_ahead": "Care times to fetch (days ahead)",
+          "max_bulletins": "Number of bulletins to fetch",
+          "care_days_back": "Care times to fetch (days back)"
+        },
+        "data_description": {
+          "max_messages": "How many of the newest message threads the All messages sensor lists (1–100). The service only returns the full text for the newest threads; older ones show the start of the text.",
+          "care_days_ahead": "How many days ahead reserved care times and absences are fetched (7–365). A larger value makes the request heavier, and the service may reject a very long range.",
+          "max_bulletins": "How many of the newest bulletin board posts the Bulletin board posts sensor lists (1–100).",
+          "care_days_back": "How many days back care times, actual times and absences are fetched (0–365). The range always starts at least from the Monday of this week."
+        }
+      }
+    }
+  },
+  "services": {
+    "mark_thread_read": {
+      "name": "Mark message thread as read",
+      "description": "Marks a message thread as read in Daisy Family.",
+      "fields": {
+        "thread_id": {
+          "name": "Thread ID",
+          "description": "Thread ID (thread_id in the All messages sensor attributes)."
+        }
+      }
+    }
+  }
+}

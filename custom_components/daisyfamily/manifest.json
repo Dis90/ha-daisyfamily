@@ -1,0 +1,13 @@
+{
+  "domain": "daisyfamily",
+  "name": "Daisy Family",
+  "codeowners": ["@Dis90"],
+  "config_flow": true,
+  "dependencies": ["http", "frontend"],
+  "documentation": "https://github.com/Dis90/ha-daisyfamily",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/Dis90/ha-daisyfamily/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}

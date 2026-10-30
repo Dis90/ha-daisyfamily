@@ -1,0 +1,7 @@
+mark_thread_read:
+  fields:
+    thread_id:
+      required: true
+      example: "d4b7a2c1-8e35-4f6a-9c20-5b1e7a3f9d68"
+      selector:
+        text:

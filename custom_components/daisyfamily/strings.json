@@ -1,0 +1,152 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Daisy Family",
+        "description": "Kirjaudu Daisy Familyn käyttäjätunnuksella ja salasanalla. Vahva tunnistautuminen ei toimi tässä, vaan sinun täytyy ensin luoda Daisyyn oma salasana.",
+        "data": {
+          "host": "Palvelun osoite",
+          "username": "Käyttäjätunnus",
+          "password": "Salasana"
+        },
+        "data_description": {
+          "host": "Esimerkiksi janakkala.daisyfamily.fi"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Kirjaudu uudelleen",
+        "description": "Daisy Family hylkäsi salasanan käyttäjälle {username}. Anna nykyinen salasana.",
+        "data": {
+          "password": "Salasana"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Palveluun ei saatu yhteyttä",
+      "invalid_auth": "Väärä käyttäjätunnus tai salasana",
+      "unknown": "Odottamaton virhe"
+    },
+    "abort": {
+      "already_configured": "Tämä tunnus on jo lisätty",
+      "reauth_successful": "Uudelleenkirjautuminen onnistui"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "group": {
+        "name": "Ryhmä"
+      },
+      "care_start_today": {
+        "name": "Hoitoaika alkaa tänään"
+      },
+      "care_end_today": {
+        "name": "Hoitoaika päättyy tänään"
+      },
+      "next_care_start": {
+        "name": "Seuraava hoitoaika"
+      },
+      "arrived_today": {
+        "name": "Saapunut tänään"
+      },
+      "departed_today": {
+        "name": "Lähtenyt tänään"
+      },
+      "next_absence": {
+        "name": "Seuraava poissaolo"
+      },
+      "reserved_hours_week": {
+        "name": "Varatut tunnit tällä viikolla"
+      },
+      "unread_messages": {
+        "name": "Lukemattomat viestit"
+      },
+      "latest_message": {
+        "name": "Uusin viesti"
+      },
+      "bulletins": {
+        "name": "Ilmoitustaulun ilmoitukset"
+      },
+      "latest_bulletin": {
+        "name": "Uusin ilmoitustaulun ilmoitus"
+      },
+      "reservations": {
+        "name": "Varatut hoitoajat"
+      },
+      "next_vacation": {
+        "name": "Seuraava loma-aika"
+      },
+      "next_holiday": {
+        "name": "Seuraava pyhäpäivä"
+      },
+      "all_messages": {
+        "name": "Kaikki viestit"
+      },
+      "last_success": {
+        "name": "Last successful update"
+      },
+      "update_duration": {
+        "name": "Update duration"
+      },
+      "centre": {
+        "name": "Daycare centre"
+      }
+    },
+    "binary_sensor": {
+      "absent_today": {
+        "name": "Poissa tänään"
+      },
+      "at_daycare": {
+        "name": "Hoidossa",
+        "state": {
+          "on": "Hoidossa",
+          "off": "Ei hoidossa"
+        }
+      },
+      "reservations_missing": {
+        "name": "Hoitoajat ilmoittamatta"
+      },
+      "vacation_reservations_missing": {
+        "name": "Loma-ajan hoitoajat ilmoittamatta"
+      },
+      "connection_problem": {
+        "name": "Connection problem"
+      }
+    },
+    "image": {
+      "picture": {
+        "name": "Profiilikuva"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Asetukset",
+        "data": {
+          "max_messages": "Haettavien viestien määrä",
+          "care_days_ahead": "Haettavien hoitoaikojen määrä (päivää eteenpäin)",
+          "max_bulletins": "Haettavien ilmoitusten määrä",
+          "care_days_back": "Haettavien hoitoaikojen määrä (päivää taaksepäin)"
+        },
+        "data_description": {
+          "max_messages": "Kuinka monta uusinta viestiketjua näytetään Kaikki viestit -sensorissa (1–100). Rajapinta antaa koko viestitekstin vain uusimmille ketjuille, vanhemmista näkyy tekstin alku.",
+          "care_days_ahead": "Kuinka monta päivää eteenpäin varatut hoitoajat ja poissaolot haetaan (7–365). Isompi arvo tekee haun raskaammaksi, ja palvelu voi hylätä liian pitkän haun.",
+          "max_bulletins": "Kuinka monta uusinta ilmoitustaulun ilmoitusta näytetään Ilmoitustaulun ilmoitukset -sensorissa (1–100).",
+          "care_days_back": "Kuinka monta päivää taaksepäin hoitoajat, toteutuneet ajat ja poissaolot haetaan (0–365). Haku alkaa aina vähintään kuluvan viikon maanantaista."
+        }
+      }
+    }
+  },
+  "services": {
+    "mark_thread_read": {
+      "name": "Merkitse viestiketju luetuksi",
+      "description": "Merkitsee viestiketjun luetuksi Daisy Familyssä.",
+      "fields": {
+        "thread_id": {
+          "name": "Viestiketjun tunniste",
+          "description": "Viestiketjun tunniste (thread_id Kaikki viestit -sensorin attribuutissa)."
+        }
+      }
+    }
+  }
+}
