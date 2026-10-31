@@ -205,7 +205,7 @@ The message automation follows the send time of the newest message (`sent`), so 
 
 ## Care time locking
 
-Daisy locks care time reservations and absences up to a certain date, and locked days can no longer be edited. The integration does not calculate the lock limit itself, but shows the per-day lock flag from Daisy's API as is. It appears as the `locked` value of each reservation in the `reservations` attribute of the Care reservations sensor and as a 🔒 icon in the reservation calendar card. The `locked_dates` attribute lists all locked days, so the lock is also shown on days without a reservation, for example absence days. The locking rule (for example how often the limit moves) is determined by Daisy and is not known.
+Daisy locks care time reservations and absences up to the Sunday of the next week, and locked days can no longer be edited. For example, during the week of 26–30 October (and the following weekend) days up to Sunday 8 November are locked, and on Monday 2 November the limit moves to Sunday 15 November. The integration does not calculate the lock limit itself, but shows the per-day lock flag (`IsLockedDate`) from Daisy's API as is. It appears as the `locked` value of each reservation in the `reservations` attribute of the Care reservations sensor, as the `locked_dates` attribute that lists all locked days (also days without a reservation, such as absence days), and as a 🔒 icon in the reservation calendar card.
 
 If you want a reminder before locking, build it from the "Care times not reported" sensor. It tells you when there is still something to report.
 
