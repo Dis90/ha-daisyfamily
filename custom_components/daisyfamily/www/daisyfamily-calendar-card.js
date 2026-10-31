@@ -311,7 +311,7 @@ class DaisyCalendarCard extends HTMLElement {
         if (r.date > todayStr) (byDate[r.date] ||= []).push(r);
       }
       if (showAbs) for (const d of attrs.absences || []) if (d > todayStr) absent.add(d);
-      kids.push({ ...info, byDate, actual, absent, centre: attrs.centre, group: attrs.group });
+      kids.push({ ...info, byDate, actual, absent, lockedDates: new Set(attrs.locked_dates || []), centre: attrs.centre, group: attrs.group });
     }
 
     const vacationOf = (d) => cal.periods.find((p) => p.start <= d && d <= p.end);
@@ -411,7 +411,7 @@ class DaisyCalendarCard extends HTMLElement {
     let prevWeek = null;
     const rows = dates.map((d) => {
       const all = kids.flatMap((k) => k.byDate[d] || []);
-      const locked = all.some((r) => r.locked);
+      const locked = all.some((r) => r.locked) || kids.some((k) => k.lockedDates && k.lockedDates.has(d));
       const info = dayInfo(d);
       const wk = isoWeek(d);
       const divider =

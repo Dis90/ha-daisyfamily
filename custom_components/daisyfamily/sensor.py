@@ -66,6 +66,7 @@ def _reservation_attrs(child: dict[str, Any]) -> dict[str, Any]:
     return {
         "reservations": rows,
         "absences": [d.isoformat() for d in child["upcoming_absences"]],
+        "locked_dates": child["locked_dates"],
         "history": [
             {
                 "date": h["date"].isoformat(),

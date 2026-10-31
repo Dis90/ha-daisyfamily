@@ -149,6 +149,7 @@ def parse_children(
             # filled in below
             "reservations": [],
             "absence_dates": [],
+            "locked_dates": [],
             "actuals": {},
             "arrived": None,
             "departed": None,
@@ -164,6 +165,10 @@ def parse_children(
             if day_date is None:
                 continue
             d = day_date.date()
+            if day.get("IsLockedDate"):
+                # Locked for every child, also when the day has no reservation (e.g. absence).
+                for child in result.values():
+                    child["locked_dates"].append(d.isoformat())
             for item in day.get("NursingTimes") or []:
                 child = result.get(item.get("PersonId"))
                 start, end = parse_dt(item.get("Start")), parse_dt(item.get("End"))

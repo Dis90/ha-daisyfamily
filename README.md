@@ -69,7 +69,7 @@ Each child gets their own device. Entity names below are the English names; the 
 | Absent today | On if there is an absence entry for today |
 | Next absence | Date. Attribute: all upcoming absence days |
 | Reserved hours this week | Total duration of this week's reservations in hours |
-| Care reservations | Number of upcoming reservations. The `reservations` attribute has all reservations from the fetched period, each with `date`, `weekday`, `start`, `end`, `hours`, `locked` (whether the reservation is locked) and a ready-made `text` (e.g. "Wed 28.10. 07:30–13:15"). The `history` attribute has the reservation (`start`, `end`), actual arrival and departure (`arrived`, `departed`) and `absent` for past days and today |
+| Care reservations | Number of upcoming reservations. The `reservations` attribute has all reservations from the fetched period, each with `date`, `weekday`, `start`, `end`, `hours`, `locked` (whether the reservation is locked) and a ready-made `text` (e.g. "Wed 28.10. 07:30–13:15"). The `locked_dates` attribute lists all locked days, including days without a reservation (for example absence days). The `history` attribute has the reservation (`start`, `end`), actual arrival and departure (`arrived`, `departed`) and `absent` for past days and today |
 | Profile picture | The child's picture from Daisy (image entity). Only created for children who have a picture in Daisy. Fetched hourly and kept in Home Assistant |
 
 Account-level entities:
@@ -205,7 +205,7 @@ The message automation follows the send time of the newest message (`sent`), so 
 
 ## Care time locking
 
-Daisy locks care time reservations and absences up to a certain date, and locked days can no longer be edited. The integration does not calculate the lock limit itself, but shows the per-day lock flag from Daisy's API as is. It appears as the `locked` value of each reservation in the `reservations` attribute of the Care reservations sensor and as a 🔒 icon in the reservation calendar card. The locking rule (for example how often the limit moves) is determined by Daisy and is not known.
+Daisy locks care time reservations and absences up to a certain date, and locked days can no longer be edited. The integration does not calculate the lock limit itself, but shows the per-day lock flag from Daisy's API as is. It appears as the `locked` value of each reservation in the `reservations` attribute of the Care reservations sensor and as a 🔒 icon in the reservation calendar card. The `locked_dates` attribute lists all locked days, so the lock is also shown on days without a reservation, for example absence days. The locking rule (for example how often the limit moves) is determined by Daisy and is not known.
 
 If you want a reminder before locking, build it from the "Care times not reported" sensor. It tells you when there is still something to report.
 
