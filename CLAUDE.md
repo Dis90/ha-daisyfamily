@@ -12,8 +12,8 @@ by the maintainer (Olli Suominen, GitHub `Dis90`).
 
 ## Working agreements
 
-- **Version stays 1.0.0** (`manifest.json`, `CARD_VERSION`/`MSG_CARD_VERSION`/`BUL_VERSION` in `__init__.py` and `www/*.js`)
-  until the maintainer says otherwise. The tag `v1.0.0` / GitHub release is created by the maintainer.
+- **Version stays 1.0.1** (`manifest.json`, `CARD_VERSION`/`MSG_CARD_VERSION`/`BUL_VERSION` in `__init__.py` and `www/*.js`)
+  until the maintainer says otherwise. Tags and GitHub releases are created by the maintainer.
 - **Commit changes normally and push with a plain `git push`.** Do not rewrite history or force push unless the
   maintainer explicitly asks.
 - **Code comments, docstrings and README in English.** The maintainer talks Finnish in chat; answer in Finnish.
@@ -77,4 +77,4 @@ objects, a fake clock and both languages (`hass.locale.language`). Real-HA behav
 - A lighter "reservations only" refresh for the card's refresh button.
 - Photo folders (`GrowthFolder`): fetch metadata rarely, proxy images on demand via signed paths, no files on disk.
 - Quiet hours for polling were considered and advised against (evening is when reservations and messages arrive).
-- HACS: needs a GitHub release/tag `v1.0.0`.
+- HACS: needs a GitHub release/tag for the current version.

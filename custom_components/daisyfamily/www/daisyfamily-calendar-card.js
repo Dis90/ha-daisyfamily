@@ -1,6 +1,6 @@
 (() => {
 /* Daisy Family – reservation calendar */
-const CARD_VERSION = "1.0.0";
+const CARD_VERSION = "1.0.1";
 const CARD_TAG = "daisyfamily-calendar-card";
 const EDITOR_TAG = "daisyfamily-calendar-card-editor";
 

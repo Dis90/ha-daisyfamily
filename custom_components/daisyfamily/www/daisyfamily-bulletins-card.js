@@ -1,6 +1,6 @@
 (() => {
 /* Daisy Family – bulletin board */
-const BUL_VERSION = "1.0.0";
+const BUL_VERSION = "1.0.1";
 
 /* Languages: Finnish (fi) and English (en). All other Home Assistant languages use English. */
 const I18N = {

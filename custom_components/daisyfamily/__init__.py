@@ -28,7 +28,7 @@ CARD_FILES = (
     "daisyfamily-messages-card.js",
     "daisyfamily-bulletins-card.js",
 )
-CARD_VERSION = "1.0.0"
+CARD_VERSION = "1.0.1"
 CARD_FLAG = "daisyfamily_card_registered"
 SERVICE_MARK_READ = "mark_thread_read"
 _THREAD_ID = re.compile(r"^[0-9A-Za-z\-]{8,64}$")
