@@ -50,7 +50,7 @@ by the maintainer (Olli Suominen, GitHub `Dis90`).
 
 ## Things learned about Daisy's data
 
-- Day status types: `A` absence, `I` arrival, `O` departure.
+- Day status types: `A` absence, `S` sick, `I` arrival, `O` departure. A sick day counts as an absence and is also listed in `sick_dates`.
 - **Lock rule:** reservations and absences are locked up to the **Sunday of the next week**. The per-day flag is
   `IsLockedDate` (also set on days without reservations, e.g. absence days). It is exposed as `locked_dates`.
   `ShortestLockTime` only carries the request time of day, the date is that Sunday.

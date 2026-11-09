@@ -66,6 +66,7 @@ def _reservation_attrs(child: dict[str, Any]) -> dict[str, Any]:
     return {
         "reservations": rows,
         "absences": [d.isoformat() for d in child["upcoming_absences"]],
+        "sick_dates": [d.isoformat() for d in child["sick_dates"]],
         "locked_dates": child["locked_dates"],
         "history": [
             {
@@ -221,7 +222,7 @@ async def async_setup_entry(
 class DaisyChildSensor(DaisyChildEntity, SensorEntity):
     entity_description: DaisyChildSensorDescription
     _unrecorded_attributes = frozenset(
-        {"reservations", "absences", "upcoming", "history"}
+        {"reservations", "absences", "sick_dates", "upcoming", "history"}
     )
 
     def __init__(self, coordinator, child_id: str, description: DaisyChildSensorDescription) -> None:

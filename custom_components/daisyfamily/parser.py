@@ -149,6 +149,7 @@ def parse_children(
             # filled in below
             "reservations": [],
             "absence_dates": [],
+            "sick_dates": [],
             "locked_dates": [],
             "actuals": {},
             "arrived": None,
@@ -192,9 +193,12 @@ def parse_children(
                         t = parse_dt(status.get("End"))
                         if t and (act["departed"] is None or t > act["departed"]):
                             act["departed"] = t
-                if kind == "A":
+                if kind in ("A", "S"):
+                    # A: absence, S: sick. A sick day counts as an absence everywhere.
                     if d not in child["absence_dates"]:
                         child["absence_dates"].append(d)
+                    if kind == "S" and d not in child["sick_dates"]:
+                        child["sick_dates"].append(d)
                 elif d == today and kind == "I":
                     # Start holds the actual arrival time
                     arrived = parse_dt(status.get("Start"))
@@ -211,6 +215,7 @@ def parse_children(
     for child in result.values():
         child["reservations"].sort(key=lambda r: r["start"])
         child["absence_dates"].sort()
+        child["sick_dates"].sort()
         _derive(child, now)
     return result
 

@@ -43,7 +43,7 @@ const I18N = {
   fi: {
     card_name: "Daisy Family – varauskalenteri", card_desc: "Lasten varatut hoitoajat, poissaolot ja loma-ajat päivittäin.",
     wd: ["su", "ma", "ti", "ke", "to", "pe", "la"],
-    reserved: "Varattu", week: "Viikko", wk: "vko.", absent: "Poissa", nokid: "entiteettiä ei löydy",
+    reserved: "Varattu", week: "Viikko", wk: "vko.", absent: "Poissa", sick: "Sairas", nokid: "entiteettiä ei löydy",
     updated: "Päivitetty", noupdate: "Päivitysaika ei tiedossa", failed: " · päivitys epäonnistui",
     refresh: "Päivitä tiedot nyt", empty: "Ei tulevia varauksia.", vacation: "Loma-aika", unknown: "ei tiedossa",
     today: (hm) => `tänään klo ${hm}`, dayAt: (d, m, hm) => `${d}.${m}. klo ${hm}`, sep: ".",
@@ -62,7 +62,7 @@ const I18N = {
   en: {
     card_name: "Daisy Family – reservation calendar", card_desc: "Children's care reservations, absences and holiday periods day by day.",
     wd: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-    reserved: "Reserved", week: "Week", wk: "wk ", absent: "Absent", nokid: "entity not found",
+    reserved: "Reserved", week: "Week", wk: "wk ", absent: "Absent", sick: "Sick", nokid: "entity not found",
     updated: "Updated", noupdate: "Update time unknown", failed: " · refresh failed",
     refresh: "Refresh data now", empty: "No upcoming reservations.", vacation: "Holiday period", unknown: "unknown",
     today: (hm) => `today at ${hm}`, dayAt: (d, m, hm) => `${d}.${m}. at ${hm}`, sep: ":",
@@ -292,7 +292,7 @@ class DaisyCalendarCard extends HTMLElement {
     for (const eid of cfg.entities) {
       const res = resolveReservationEntity(hass, eid);
       if (!res) {
-        kids.push({ name: eid, picture: null, byDate: {}, actual: {}, absent: new Set(), missing: true });
+        kids.push({ name: eid, picture: null, byDate: {}, actual: {}, absent: new Set(), sick: new Set(), missing: true });
         continue;
       }
       const info = childInfo(hass, res);
@@ -311,7 +311,8 @@ class DaisyCalendarCard extends HTMLElement {
         if (r.date > todayStr) (byDate[r.date] ||= []).push(r);
       }
       if (showAbs) for (const d of attrs.absences || []) if (d > todayStr) absent.add(d);
-      kids.push({ ...info, byDate, actual, absent, lockedDates: new Set(attrs.locked_dates || []), centre: attrs.centre, group: attrs.group });
+      const sick = new Set(showAbs ? attrs.sick_dates || [] : []);
+      kids.push({ ...info, byDate, actual, absent, sick, lockedDates: new Set(attrs.locked_dates || []), centre: attrs.centre, group: attrs.group });
     }
 
     const vacationOf = (d) => cal.periods.find((p) => p.start <= d && d <= p.end);
@@ -392,6 +393,11 @@ class DaisyCalendarCard extends HTMLElement {
       };
     };
 
+    const absPill = (k, d) =>
+      k.sick.has(d)
+        ? `<span class="abs"><ha-icon icon="mdi:emoticon-sick"></ha-icon>${t("sick")}</span>`
+        : `<span class="abs"><ha-icon icon="mdi:home-outline"></ha-icon>${t("absent")}</span>`;
+
     /* Day list: reservation or absence, plus holiday periods and public holidays on weekdays. */
     const dateSet = new Set();
     for (const k of kids) {
@@ -426,9 +432,7 @@ class DaisyCalendarCard extends HTMLElement {
           const act = k.actual[d];
           const isAbsent = k.absent.has(d);
           if (!list && !act && !isAbsent && !cfg.show_empty) return "";
-          const pill = isAbsent
-            ? `<span class="abs"><ha-icon icon="mdi:home-outline"></ha-icon>${t("absent")}</span>`
-            : "";
+          const pill = isAbsent ? absPill(k, d) : "";
           return `<div class="kid"><div class="head"><div class="chip">${avatar(k)}<span class="nm">${esc(k.name)}</span>${
             list || act || isAbsent ? "" : '<span class="none">ei hoitoa</span>'
           }${k.missing ? `<span class="none">${t("nokid")}</span>` : ""}</div>${pill}</div>${list || act ? barHtml(list, act, d === todayStr) : ""}</div>`;
@@ -455,7 +459,7 @@ class DaisyCalendarCard extends HTMLElement {
                 .join("")
             : "";
           return `<div class="pcard"><div class="phead">${avatar(k, "pav")}<span class="pname">${esc(k.name)}</span>${
-            isAbsent ? `<span class="abs"><ha-icon icon="mdi:home-outline"></ha-icon>${t("absent")}</span>` : ""
+            isAbsent ? absPill(k, d) : ""
           }</div>${chips ? `<div class="pchips">${chips}</div>` : ""}${(list || act) && !isAbsent ? barHtml(list, act, d === this._popup && d === todayStr) : ""}</div>`;
         })
         .join("");

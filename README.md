@@ -66,10 +66,10 @@ Each child gets their own device. Entity names below are the English names; the 
 | Next care time | Ongoing or next reservation. Attributes: end time and the next 10 reservations |
 | Arrived / Left today | Actual times recorded by the daycare |
 | At daycare | State "At daycare" when the child is checked in and not out, otherwise "Not at daycare" (state `on`/`off`) |
-| Absent today | On if there is an absence entry for today |
-| Next absence | Date. Attribute: all upcoming absence days |
+| Absent today | On if there is an absence or sick entry for today |
+| Next absence | Date (sick days included). Attribute: all upcoming absence days |
 | Reserved hours this week | Total duration of this week's reservations in hours |
-| Care reservations | Number of upcoming reservations. The `reservations` attribute has all reservations from the fetched period, each with `date`, `weekday`, `start`, `end`, `hours`, `locked` (whether the reservation is locked) and a ready-made `text` (e.g. "Wed 28.10. 07:30–13:15"). The `locked_dates` attribute lists all locked days, including days without a reservation (for example absence days). The `history` attribute has the reservation (`start`, `end`), actual arrival and departure (`arrived`, `departed`) and `absent` for past days and today |
+| Care reservations | Number of upcoming reservations. The `reservations` attribute has all reservations from the fetched period, each with `date`, `weekday`, `start`, `end`, `hours`, `locked` (whether the reservation is locked) and a ready-made `text` (e.g. "Wed 28.10. 07:30–13:15"). The `locked_dates` attribute lists all locked days, including days without a reservation (for example absence days). The `history` attribute has the reservation (`start`, `end`), actual arrival and departure (`arrived`, `departed`) and `absent` for past days and today. The `sick_dates` attribute lists the sick days of the fetched period; they are also included in `absences` and `absent` |
 | Profile picture | The child's picture from Daisy (image entity). Only created for children who have a picture in Daisy. Fetched hourly and kept in Home Assistant |
 
 Account-level entities:
@@ -211,7 +211,7 @@ If you want a reminder before locking, build it from the "Care times not reporte
 
 ## Reservation calendar card
 
-The integration ships with its own Lovelace card that shows care times day by day in the style of Daisy: on the left the date, weekday, week number and 🔒 for a locked day, on the right each child's profile picture, name and a bar for the care time. Holidays and public holidays appear as an orange date tile (the name of the public holiday as a banner) and absences as an orange "Absent" marker. Weeks are separated with a "Week N" divider. Clicking a day (anywhere on it) opens a day window showing everyone's care times, the daycare centre and the group, with arrows to browse days (view only, absences cannot be marked). Today is outlined in green.
+The integration ships with its own Lovelace card that shows care times day by day in the style of Daisy: on the left the date, weekday, week number and 🔒 for a locked day, on the right each child's profile picture, name and a bar for the care time. Holidays and public holidays appear as an orange date tile (the name of the public holiday as a banner) and absences as an orange "Absent" marker (sick days as "Sick"). Weeks are separated with a "Week N" divider. Clicking a day (anywhere on it) opens a day window showing everyone's care times, the daycare centre and the group, with arrows to browse days (view only, absences cannot be marked). Today is outlined in green.
 
 The card loads automatically, and no separate resource needs to be added. After an update, restart Home Assistant and refresh the browser (Ctrl+F5).
 
